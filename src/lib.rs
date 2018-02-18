@@ -1,6 +1,7 @@
 //! Detect what CI this code is running on and extract the information it provides from env vars.
-
-pub mod providers;
+//!
+//! Documentation of individual build environment variables is from the appropriate
+//! documentation and is copyright the provider under the original license
 
 fn env(var: &str) -> Option<String> {
     let env_var = std::env::var(var).unwrap_or_default();
@@ -10,3 +11,11 @@ fn env(var: &str) -> Option<String> {
         None
     }
 }
+
+/// Jenkins CI
+pub mod jenkins;
+pub use self::jenkins::Jenkins;
+
+/// Travis CI
+pub mod travis;
+pub use self::travis::Travis;
