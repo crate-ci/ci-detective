@@ -14,8 +14,12 @@ fn env(var: &str) -> Option<String> {
 
 /// Jenkins CI
 pub mod jenkins;
-pub use self::jenkins::Jenkins;
+pub use jenkins::Jenkins;
 
 /// Travis CI
 pub mod travis;
-pub use self::travis::Travis;
+pub use travis::Travis;
+
+/// Docker
+pub mod docker;
+pub use docker::Docker;
