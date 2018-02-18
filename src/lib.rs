@@ -23,3 +23,7 @@ pub use travis::Travis;
 /// Docker
 pub mod docker;
 pub use docker::Docker;
+
+/// Codeship CI
+pub mod codeship;
+pub use codeship::Codeship;
