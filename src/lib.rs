@@ -27,3 +27,7 @@ pub use docker::Docker;
 /// Codeship CI
 pub mod codeship;
 pub use codeship::Codeship;
+
+/// Codefresh CI
+pub mod codefresh;
+pub use codefresh::Codefresh;
