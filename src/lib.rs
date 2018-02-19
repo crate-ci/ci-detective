@@ -31,3 +31,6 @@ pub use codeship::Codeship;
 /// Codefresh CI
 pub mod codefresh;
 pub use codefresh::Codefresh;
+
+// TeamCity CI doesn't provide environment variables by default
+// <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L521-L547>
