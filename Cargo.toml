@@ -3,6 +3,8 @@ name = "ci-detective"
 version = "0.1.0"
 authors = ["Christopher Durham <cad97@cad97.com>"]
 
+license = "Apache-2.0 OR MIT"
+
 [dependencies]
 
 [features]
