@@ -3,6 +3,31 @@
 //! Documentation of individual build environment variables is from the appropriate
 //! documentation and is copyright the provider under the original license
 
+#![forbid(missing_debug_implementations, unconditional_recursion, future_incompatible)]
+#![deny(bad_style, missing_docs, unsafe_code, unused)]
+#![warn(unreachable_pub)]
+#![cfg_attr(feature = "nightly", feature(non_exhaustive))]
+
+/// Grab the configuration from whatever CI you're on.
+#[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
+pub enum CI {
+    /// Jenkins CI
+    Jenkins(Jenkins),
+    /// Travis CI
+    Travis(Travis),
+    /// Docker
+    Docker(Docker),
+    /// Codeship CI
+    Codeship(Codeship),
+    /// Codefresh CI
+    Codefresh(Codefresh),
+    /// Circle CI
+    Circle(Circle),
+    #[doc(hidden)]
+    __NonExhaustive,
+}
+
 fn env(var: &str) -> Option<String> {
     let env_var = std::env::var(var).unwrap_or_default();
     if !env_var.is_empty() {
