@@ -7,6 +7,7 @@ use env;
 /// - <https://docs.docker.com/docker-cloud/builds/advanced/>
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L490-L500>
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub struct Docker {
     /// The name of the branch or the tag that is currently being tested.
     pub source_branch: String,

@@ -7,6 +7,7 @@ use env;
 /// - <https://circleci.com/docs/1.0/environment-variables/>
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L548-L568>
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub struct Circle {
     /// The username or organization name of the project being tested,
     /// i.e. `foo` in `circleci.com/gh/foo/bar/123`

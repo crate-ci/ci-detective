@@ -9,6 +9,7 @@ use std::str::FromStr;
 /// - <https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables>
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L467-L489>
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub struct Travis {
     /// - set to `true` if the job is allowed to fail.
     /// - set to `false` if the job is not allowed to fail.
@@ -65,23 +66,40 @@ pub struct Travis {
     pub sudo: bool,
     /// If the current build is for a git tag, this variable is set to the tag’s name.
     pub tag: Option<String>,
+    /// The current version of dart being used to run the build (if any).
     pub dart_version: Option<String>,
+    /// The current version of go being used to run the build (if any).
     pub go_version: Option<String>,
+    /// The current version of haxe being used to run the build (if any).
     pub haxe_version: Option<String>,
+    /// The current version of jdk being used to run the build (if any).
     pub jdk_version: Option<String>,
+    /// The current version of julia being used to run the build (if any).
     pub julia_version: Option<String>,
+    /// The current version of node being used to run the build (if any).
     pub node_version: Option<String>,
     pub otp_release: Option<String>,
+    /// The current version of perl being used to run the build (if any).
     pub perl_version: Option<String>,
+    /// The current version of php being used to run the build (if any).
     pub php_version: Option<String>,
+    /// The current version of python being used to run the build (if any).
     pub python_version: Option<String>,
+    /// The current version of r being used to run the build (if any).
     pub r_version: Option<String>,
+    /// The current version of ruby being used to run the build (if any).
     pub ruby_version: Option<String>,
+    /// The current version of rust being used to run the build (if any).
     pub rust_version: Option<String>,
+    /// The current version of scala being used to run the build (if any).
     pub scala_version: Option<String>,
+    /// The current XCode SDK being used to run the build (if any).
     pub xcode_sdk: Option<String>,
+    /// The current XCode Scheme being used to run the build (if any).
     pub xcode_scheme: Option<String>,
+    /// The current XCode Project being used to run the build (if any).
     pub xcode_project: Option<String>,
+    /// The current XCode Workspace being used to run the build (if any).
     pub xcode_workspace: Option<String>,
     non_exhaustive: (),
 }
@@ -152,12 +170,14 @@ impl Travis {
 
 /// Indicates how the build was triggered.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub enum EventType {
     Push,
     PullRequest,
     Api,
     Cron,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for EventType {
@@ -176,10 +196,12 @@ impl FromStr for EventType {
 /// On multi-OS builds, this value indicates the platform the job is running on.
 /// To be extended in the future.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub enum OS {
     Linux,
     MacOS,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for OS {

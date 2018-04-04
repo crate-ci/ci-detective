@@ -8,6 +8,7 @@ use std::str::FromStr;
 ///
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L511-L520>
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub struct Codefresh {
     /// Repository owner.
     pub repo_owner: String,
@@ -69,12 +70,14 @@ impl Codefresh {
 
 /// How the current build was triggered.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub enum BuildTrigger {
     /// The build was triggered from the build button.
     Build,
     /// The build was triggered from a control version webhook.
     Webhook,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for BuildTrigger {

@@ -8,6 +8,7 @@ use std::path::PathBuf;
 /// - <https://wiki.jenkins.io/display/JENKINS/Building+a+software+project#Buildingasoftwareproject-belowJenkinsSetEnvironmentVariables>
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L430-L466>
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
 pub struct Jenkins {
     /// The current build number, such as `153`
     pub build_number: usize,
@@ -51,6 +52,7 @@ pub struct Jenkins {
     /// For Git-based projects, this variable contains the Git branch
     /// that was checked out for the build (normally `origin/master`)
     pub git_branch: Option<String>,
+    /// Jenkins GitHub pull request builder plugin settings
     pub ghprb: Option<GHPRB>,
     non_exhaustive: (),
 }
@@ -86,6 +88,8 @@ impl Jenkins {
 /// - <https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin#GitHubpullrequestbuilderplugin-EnvironmentVariables>
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L430-L466>
 #[derive(Clone, Debug)]
+#[cfg_attr(feature = "nightly", non_exhaustive)]
+#[allow(missing_docs)]
 pub struct GHPRB {
     pub actual_commit: String,
     pub actual_commit_author: String,
