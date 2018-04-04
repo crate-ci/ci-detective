@@ -78,6 +78,7 @@ pub struct Travis {
     pub julia_version: Option<String>,
     /// The current version of node being used to run the build (if any).
     pub node_version: Option<String>,
+    /// The current version of otp being used to run the build (if any).
     pub otp_release: Option<String>,
     /// The current version of perl being used to run the build (if any).
     pub perl_version: Option<String>,
@@ -171,6 +172,7 @@ impl Travis {
 /// Indicates how the build was triggered.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "nightly", non_exhaustive)]
+#[allow(missing_docs)]
 pub enum EventType {
     Push,
     PullRequest,
@@ -197,6 +199,7 @@ impl FromStr for EventType {
 /// To be extended in the future.
 #[derive(Copy, Clone, Debug, Eq, PartialEq, Hash)]
 #[cfg_attr(feature = "nightly", non_exhaustive)]
+#[allow(missing_docs)]
 pub enum OS {
     Linux,
     MacOS,

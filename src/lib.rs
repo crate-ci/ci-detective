@@ -24,6 +24,8 @@ pub enum CI {
     Codefresh(Codefresh),
     /// Circle CI
     Circle(Circle),
+    /// Appveyor CI
+    Appveyor(Appveyor),
     #[doc(hidden)]
     __NonExhaustive,
 }
@@ -39,6 +41,7 @@ impl CI {
             .or_else(|| Codeship ::from_env().map(CI::Codeship ))
             .or_else(|| Codefresh::from_env().map(CI::Codefresh))
             .or_else(|| Circle   ::from_env().map(CI::Circle   ))
+            .or_else(|| Appveyor ::from_env().map(CI::Appveyor ))
     }
 }
 
@@ -77,3 +80,7 @@ pub use codefresh::Codefresh;
 /// Circle CI
 pub mod circle;
 pub use circle::Circle;
+
+/// Appveyor CI
+pub mod appveyor;
+pub use appveyor::Appveyor;

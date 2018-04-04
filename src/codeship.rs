@@ -8,6 +8,7 @@ use env;
 /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L501-L510>
 #[derive(Clone, Debug)]
 #[cfg_attr(feature = "nightly", non_exhaustive)]
+#[allow(missing_docs)]
 pub struct Codeship {
     pub branch: String,
     pub build_number: String,
