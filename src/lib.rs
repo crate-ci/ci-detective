@@ -28,6 +28,20 @@ pub enum CI {
     __NonExhaustive,
 }
 
+impl CI {
+    /// Grab the CI environment information
+    #[cfg_attr(rustfmt, rustfmt_skip)]
+    pub fn from_env() -> Option<Self> {
+        None
+            .or_else(|| Jenkins  ::from_env().map(CI::Jenkins  ))
+            .or_else(|| Travis   ::from_env().map(CI::Travis   ))
+            .or_else(|| Docker   ::from_env().map(CI::Docker   ))
+            .or_else(|| Codeship ::from_env().map(CI::Codeship ))
+            .or_else(|| Codefresh::from_env().map(CI::Codefresh))
+            .or_else(|| Circle   ::from_env().map(CI::Circle   ))
+    }
+}
+
 fn env(var: &str) -> Option<String> {
     let env_var = std::env::var(var).unwrap_or_default();
     if !env_var.is_empty() {
