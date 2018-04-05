@@ -178,8 +178,7 @@ pub enum EventType {
     PullRequest,
     Api,
     Cron,
-    #[doc(hidden)]
-    __NonExhaustive,
+    #[doc(hidden)] __NonExhaustive,
 }
 
 impl FromStr for EventType {
@@ -203,8 +202,7 @@ impl FromStr for EventType {
 pub enum OS {
     Linux,
     MacOS,
-    #[doc(hidden)]
-    __NonExhaustive,
+    #[doc(hidden)] __NonExhaustive,
 }
 
 impl FromStr for OS {

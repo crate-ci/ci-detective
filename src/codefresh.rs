@@ -76,8 +76,7 @@ pub enum BuildTrigger {
     Build,
     /// The build was triggered from a control version webhook.
     Webhook,
-    #[doc(hidden)]
-    __NonExhaustive,
+    #[doc(hidden)] __NonExhaustive,
 }
 
 impl FromStr for BuildTrigger {
