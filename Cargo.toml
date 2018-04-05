@@ -1,9 +1,18 @@
 [package]
 name = "ci-detective"
 version = "0.1.0"
+description = "Query CI environment."
 authors = ["Christopher Durham <cad97@cad97.com>"]
-
-license = "Apache-2.0 OR MIT"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/crate-ci/ci-detective.git"
+homepage = "https://github.com/crate-ci/ci-detective"
+documentation = "http://docs.rs/ci-detective/"
+readme = "README.md"
+categories = ["development-tools::testing"]
+keywords = ["ci"]
 
 [features]
 nightly = []
+
+[badges]
+travis-ci = { repository = "crate-ci/ci-detective" }
