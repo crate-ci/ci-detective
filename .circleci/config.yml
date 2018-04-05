@@ -1,0 +1,21 @@
+# https://abronan.com/building-a-rust-project-on-circleci/
+# https://hub.docker.com/_/rust/
+
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: rust:1-stretch
+    steps:
+      - checkout
+      - restore_cache:
+          key: cargo-cache
+      - run:
+          name: Run Circle Example
+          command: cargo run --example circle
+      - save_cache:
+          key: cargo-cache
+          paths:
+            - "~/.cargo"
+            - "./target"
