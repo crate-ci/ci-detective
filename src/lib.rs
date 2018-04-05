@@ -125,7 +125,7 @@ macro_rules! ci {
         )*}
 
         impl $CI {$(
-            ci!{__impl $(#[$member_doc])* $member $optionality : $member_ty}
+            ci!{__impl #[ci(env($member_env))] $(#[$member_doc])* $member $optionality : $member_ty}
         )*}
 
         impl $CI {
@@ -166,22 +166,19 @@ macro_rules! ci {
         }
     };
 
-    (__impl $(#[$member_doc:meta])* $member:ident? : $member_ty:ty) => {
+    (__impl #[ci(env($member_env:ident))] $(#[$member_doc:meta])* $member:ident? : $member_ty:ty) => {
         $(#[$member_doc])*
         pub fn $member(&mut self) -> Option<&$member_ty> {
             self.$member.get()
         }
     };
 
-    (__impl $(#[$member_doc:meta])* $member:ident! : $member_ty:ty) => {
+    (__impl #[ci(env($member_env:ident))] $(#[$member_doc:meta])* $member:ident! : $member_ty:ty) => {
         $(#[$member_doc])*
         pub fn $member(&mut self) -> &$member_ty {
-            self.$member.get().expect(concat!(
-                "Environment variable ",
-                stringify!($member),
-                " expected to parse to ",
-                stringify!($member_ty),
-                " but failed",
+            self.$member.get().unwrap_or_else(|| panic!(
+                "Environment variable {} expected to parse to {} but failed; was {:?}",
+                stringify!($member_env), stringify!($member_ty), ::env(stringify!($member_env)),
             ))
         }
     };
