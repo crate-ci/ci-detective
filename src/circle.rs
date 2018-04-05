@@ -75,7 +75,7 @@ impl Circle {
             return None;
         }
 
-        return Some(Circle {
+        Some(Circle {
             project_username: env("CIRCLE_PROJECT_USERNAME")?,
             project_reponame: env("CIRCLE_PROJECT_REPONAME")?,
             branch: env("CIRCLE_BRANCH"),
@@ -98,6 +98,6 @@ impl Circle {
             node_index: env("CIRCLE_NODE_INDEX")?.parse().ok()?,
             build_image: env("CIRCLE_BUILD_IMAGE")?,
             non_exhaustive: (),
-        });
+        })
     }
 }
