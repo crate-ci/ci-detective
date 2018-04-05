@@ -67,6 +67,7 @@ fn env(var: &str) -> Option<String> {
     }
 }
 
+// TODO(CAD): Hide mutability with Cell?
 #[derive(Copy, Clone, Debug)]
 struct LazyEnv<T: std::str::FromStr>(Option<T>, &'static str);
 
@@ -75,7 +76,6 @@ impl<T: std::str::FromStr> LazyEnv<T> {
         LazyEnv(None, var)
     }
 
-    // TODO(CAD): Hide mutability with Cell?
     fn get(&mut self) -> Option<&T> {
         if self.0.is_none() {
             self.0 = env(self.1).and_then(|it| it.parse().ok());
