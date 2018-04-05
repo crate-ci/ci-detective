@@ -63,25 +63,25 @@ ci! {
 
         #[ci(env(CIRCLE_PR_NUMBER))]
         /// The GitHub/Bitbucket pull request number.
-        pr_number: u32!,
+        pr_number: u32?,
 
         #[ci(env(CIRCLE_PR_REPONAME))]
         /// The GitHub/Bitbucket repository name in which the pull request was made.
-        pr_reponame: String!,
+        pr_reponame: String?,
 
         #[ci(env(CIRCLE_PR_USERNAME))]
         /// The GitHub/Bitbucket username of the user who created the pull request.
-        pr_username: String!,
+        pr_username: String?,
 
         #[ci(env(CIRCLE_PULL_REQUESTS))]
         /// Comma-separated list of URLs of pull requests this build is a part of.
-        pull_requests: String!,
+        pull_requests: String?,
 
         #[ci(env(CIRCLE_PULL_REQUEST))]
         /// If this build is part of only one pull request, its URL will be populated here.
         /// If there was more than one pull request,
         /// it will contain one of the pull request URLs (picked randomly).
-        pull_request: String!,
+        pull_request: String?,
 
         #[ci(env(CIRCLE_TAG))]
         /// The name of the git tag being tested, e.g. ‘release-v1.5.4’, if the build is running for a tag.
