@@ -68,21 +68,41 @@ fn env(var: &str) -> Option<String> {
 }
 
 // TODO(CAD): Hide mutability with Cell?
+// TODO(FUTURE_RUST(1.26)): Use FromStr again (revert this line's blame)
 #[derive(Copy, Clone, Debug)]
-struct LazyEnv<T: std::str::FromStr>(Option<T>, &'static str);
+struct LazyEnv<T>(Option<T>, &'static str);
 
-impl<T: std::str::FromStr> LazyEnv<T> {
+impl<T> LazyEnv<T> {
     fn new(var: &'static str) -> Self {
         LazyEnv(None, var)
     }
-
-    fn get(&mut self) -> Option<&T> {
-        if self.0.is_none() {
-            self.0 = env(self.1).and_then(|it| it.parse().ok());
-        }
-        self.0.as_ref()
-    }
 }
+
+macro_rules! lazy_env_get {
+    (::std::path::PathBuf) => {
+        impl LazyEnv<::std::path::PathBuf> {
+            fn get(&mut self) -> Option<&::std::path::PathBuf> {
+                if self.0.is_none() {
+                    self.0 = env(self.1).map(Into::into);
+                }
+                self.0.as_ref()
+            }
+        }
+    };
+    ($ty:ty) => {
+        impl LazyEnv<$ty> {
+            fn get(&mut self) -> Option<&$ty> {
+                if self.0.is_none() {
+                    self.0 = env(self.1).and_then(|it| it.parse().ok());
+                }
+                self.0.as_ref()
+            }
+        }
+    };
+    ($head:ty, $($tail:tt)*) => { lazy_env_get!($head); lazy_env_get!($($tail)*); };
+    (,) => {}
+}
+lazy_env_get!(u32, String, ::std::path::PathBuf);
 
 // TODO(CAD): Make this an actual proc macro for proper attribute handling?
 // This will require removing the ?/! sugar.
