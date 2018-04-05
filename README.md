@@ -1,4 +1,4 @@
-# Assert CLI
+# ci-detective
 
 > **Query CI Environment** - Look up information about the CI the build is happening in.
 
