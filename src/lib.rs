@@ -166,14 +166,18 @@ macro_rules! ci {
         }
     };
 
-    (__impl #[ci(env($member_env:ident))] $(#[$member_doc:meta])* $member:ident? : $member_ty:ty) => {
+    (__impl
+        #[ci(env($member_env:ident))] $(#[$member_doc:meta])* $member:ident? : $member_ty:ty
+    ) => {
         $(#[$member_doc])*
         pub fn $member(&mut self) -> Option<&$member_ty> {
             self.$member.get()
         }
     };
 
-    (__impl #[ci(env($member_env:ident))] $(#[$member_doc:meta])* $member:ident! : $member_ty:ty) => {
+    (__impl
+        #[ci(env($member_env:ident))] $(#[$member_doc:meta])* $member:ident! : $member_ty:ty
+    ) => {
         $(#[$member_doc])*
         pub fn $member(&mut self) -> &$member_ty {
             self.$member.get().unwrap_or_else(|| panic!(
