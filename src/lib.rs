@@ -13,19 +13,19 @@
 #[cfg_attr(feature = "nightly", non_exhaustive)]
 pub enum CI {
     // /// Jenkins CI
-    // Jenkins(Jenkins),
+    // Jenkins(Box<Jenkins>),
     // /// Travis CI
-    // Travis(Travis),
+    // Travis(Box<Travis>),
     // /// Docker
-    // Docker(Docker),
+    // Docker(Box<Docker>),
     // /// Codeship CI
-    // Codeship(Codeship),
+    // Codeship(Box<Codeship>),
     // /// Codefresh CI
-    // Codefresh(Codefresh),
+    // Codefresh(Box<Codefresh>),
     /// Circle CI
-    Circle(Circle),
+    Circle(Box<Circle>),
     // /// Appveyor CI
-    // Appveyor(Appveyor),
+    // Appveyor(Box<Appveyor>),
     #[doc(hidden)]
     __NonExhaustive,
 }
@@ -35,26 +35,26 @@ impl CI {
     #[cfg_attr(rustfmt, rustfmt_skip)]
     pub fn lazy() -> Option<Self> {
         None
-        //  .or_else(|| Jenkins  ::lazy().map(CI::Jenkins  ))
-        //  .or_else(|| Travis   ::lazy().map(CI::Travis   ))
-        //  .or_else(|| Docker   ::lazy().map(CI::Docker   ))
-        //  .or_else(|| Codeship ::lazy().map(CI::Codeship ))
-        //  .or_else(|| Codefresh::lazy().map(CI::Codefresh))
-            .or_else(|| Circle   ::lazy().map(CI::Circle   ))
-        //  .or_else(|| Appveyor ::lazy().map(CI::Appveyor ))
+        //  .or_else(|| Jenkins  ::lazy().map(|it| CI::Jenkins  (Box::new(it))))
+        //  .or_else(|| Travis   ::lazy().map(|it| CI::Travis   (Box::new(it))))
+        //  .or_else(|| Docker   ::lazy().map(|it| CI::Docker   (Box::new(it))))
+        //  .or_else(|| Codeship ::lazy().map(|it| CI::Codeship (Box::new(it))))
+        //  .or_else(|| Codefresh::lazy().map(|it| CI::Codefresh(Box::new(it))))
+            .or_else(|| Circle   ::lazy().map(|it| CI::Circle   (Box::new(it))))
+        //  .or_else(|| Appveyor ::lazy().map(|it| CI::Appveyor (Box::new(it))))
     }
 
     /// Grab the CI environment information eagerly
     #[cfg_attr(rustfmt, rustfmt_skip)]
     pub fn eager() -> Option<Self> {
         None
-        //  .or_else(|| Jenkins  ::lazy().map(|mut it| { it.load(); Jenkins  (it) }))
-        //  .or_else(|| Travis   ::lazy().map(|mut it| { it.load(); Travis   (it) }))
-        //  .or_else(|| Docker   ::lazy().map(|mut it| { it.load(); Docker   (it) }))
-        //  .or_else(|| Codeship ::lazy().map(|mut it| { it.load(); Codeship (it) }))
-        //  .or_else(|| Codefresh::lazy().map(|mut it| { it.load(); Codefresh(it) }))
-            .or_else(|| Circle   ::lazy().map(|mut it| { it.load(); CI::Circle   (it) }))
-        //  .or_else(|| Appveyor ::lazy().map(|mut it| { it.load(); Appveyor (it) }))
+        //  .or_else(|| Jenkins  ::lazy().map(|mut it| { it.load(); CI::Jenkins  (Box::new(it)) }))
+        //  .or_else(|| Travis   ::lazy().map(|mut it| { it.load(); CI::Travis   (Box::new(it)) }))
+        //  .or_else(|| Docker   ::lazy().map(|mut it| { it.load(); CI::Docker   (Box::new(it)) }))
+        //  .or_else(|| Codeship ::lazy().map(|mut it| { it.load(); CI::Codeship (Box::new(it)) }))
+        //  .or_else(|| Codefresh::lazy().map(|mut it| { it.load(); CI::Codefresh(Box::new(it)) }))
+            .or_else(|| Circle   ::lazy().map(|mut it| { it.load(); CI::Circle   (Box::new(it)) }))
+        //  .or_else(|| Appveyor ::lazy().map(|mut it| { it.load(); CI::Appveyor (Box::new(it)) }))
     }
 }
 
