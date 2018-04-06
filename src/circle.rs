@@ -1,108 +1,124 @@
 use std::path::PathBuf;
 
-ci! {
-    #[ci(require(CI = "true", CIRCLECI = "true"))]
-    /// Circle CI
-    ///
-    /// # References
-    ///
-    /// - <https://circleci.com/docs/2.0/env-vars/#circleci-built-in-environment-variables>
-    /// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L548-L568>
-    pub struct Circle {
-        #[ci(env(HOME))]
-        /// Your home directory.
-        home: PathBuf!,
+/// Circle CI
+///
+/// # References
+///
+/// - <https://circleci.com/docs/2.0/env-vars/#circleci-built-in-environment-variables>
+/// - <https://github.com/codecov/codecov-bash/blob/8b76995ad4a95a61cecd4b049a448a402d91d197/codecov#L548-L568>
+#[derive(Clone, Debug, CI)]
+#[ci(require(CI = "true", CIRCLECI = "true"))]
+pub struct Circle {
+    /// Your home directory.
+    #[ci(env = "HOME")]
+    #[ci(expected)]
+    home: Option<PathBuf>,
 
-        #[ci(env(CIRCLE_BRANCH))]
-        /// The name of the Git branch currently being built.
-        branch: String!,
+    /// The name of the Git branch currently being built.
+    #[ci(env = "CIRCLE_BRANCH")]
+    #[ci(expected)]
+    branch: Option<String>,
 
-        #[ci(env(CIRCLE_NODE_TOTAL))]
-        /// An integer representing the number of total build instances.
-        node_total: u32!,
+    /// An integer representing the number of total build instances.
+    #[ci(env = "CIRCLE_NODE_TOTAL")]
+    #[ci(expected)]
+    node_total: Option<u32>,
 
-        #[ci(env(CIRCLE_BUILD_NUM))]
-        /// An integer between 0 and (`node_total` - 1) representing a specific build instance.
-        node_index: u32!,
+    /// An integer between 0 and (`node_total` - 1) representing a specific build instance.
+    #[ci(env = "CIRCLE_BUILD_NUM")]
+    #[ci(expected)]
+    node_index: Option<u32>,
 
-        #[ci(env(CIRCLE_PREVIOUS_BUILD_NUM))]
-        /// The CircleCI build number.
-        build_num: u32!,
+    /// The CircleCI build number.
+    #[ci(env = "CIRCLE_PREVIOUS_BUILD_NUM")]
+    #[ci(expected)]
+    build_num: Option<u32>,
 
-        #[ci(env(CIRCLE_PREVIOUS_BUILD_NUM))]
-        /// The number of previous builds in the branch.
-        previous_build_num: u32!,
+    /// The number of previous builds in the branch.
+    #[ci(env = "CIRCLE_PREVIOUS_BUILD_NUM")]
+    #[ci(expected)]
+    previous_build_num: Option<u32>,
 
-        #[ci(env(CIRCLE_BUILD_URL))]
-        /// The URL for the current build.
-        build_url: String!,
+    /// The URL for the current build.
+    #[ci(env = "CIRCLE_BUILD_URL")]
+    #[ci(expected)]
+    build_url: Option<String>,
 
-        #[ci(env(CIRCLE_SHA1))]
-        /// The SHA1 hash for the current build’s last commit.
-        sha1: String!,
+    /// The SHA1 hash for the current build’s last commit.
+    #[ci(env = "CIRCLE_SHA1")]
+    #[ci(expected)]
+    sha1: Option<String>,
 
-        #[ci(env(CIRCLE_USERNAME))]
-        /// The GitHub/Bitbucket username of the user who triggered the build.
-        username: String!,
+    /// The GitHub/Bitbucket username of the user who triggered the build.
+    #[ci(env = "CIRCLE_USERNAME")]
+    #[ci(expected)]
+    username: Option<String>,
 
-        #[ci(env(CIRCLE_JOB))]
-        /// The current job’s name.
-        job: String!,
+    /// The current job’s name.
+    #[ci(env = "CIRCLE_JOB")]
+    #[ci(expected)]
+    job: Option<String>,
 
-        #[ci(env(CIRCLE_WORKING_DIRECTORY))]
-        /// The `working_directory` for the current job.
-        working_directory: PathBuf!,
+    /// The `working_directory` for the current job.
+    #[ci(env = "CIRCLE_WORKING_DIRECTORY")]
+    #[ci(expected)]
+    working_directory: Option<PathBuf>,
 
-        #[ci(env(CIRCLE_COMPARE_URL))]
-        /// The GitHub/Bitbucket compare URL between commits in the build.
-        compare_url: String!,
+    /// The GitHub/Bitbucket compare URL between commits in the build.
+    #[ci(env = "CIRCLE_COMPARE_URL")]
+    #[ci(expected)]
+    compare_url: Option<String>,
 
-        #[ci(env(CIRCLE_REPOSITORY_URL))]
-        /// The GitHub/Bitbucket repository URL.
-        repository_url: String!,
+    /// The GitHub/Bitbucket repository URL.
+    #[ci(env = "CIRCLE_REPOSITORY_URL")]
+    #[ci(expected)]
+    repository_url: Option<String>,
 
-        #[ci(env(CIRCLE_PR_NUMBER))]
-        /// The GitHub/Bitbucket pull request number.
-        pr_number: u32?,
+    /// The GitHub/Bitbucket pull request number.
+    #[ci(env = "CIRCLE_PR_NUMBER")]
+    pr_number: Option<u32>,
 
-        #[ci(env(CIRCLE_PR_REPONAME))]
-        /// The GitHub/Bitbucket repository name in which the pull request was made.
-        pr_reponame: String?,
+    /// The GitHub/Bitbucket repository name in which the pull request was made.
+    #[ci(env = "CIRCLE_PR_REPONAME")]
+    pr_reponame: Option<String>,
 
-        #[ci(env(CIRCLE_PR_USERNAME))]
-        /// The GitHub/Bitbucket username of the user who created the pull request.
-        pr_username: String?,
+    /// The GitHub/Bitbucket username of the user who created the pull request.
+    #[ci(env = "CIRCLE_PR_USERNAME")]
+    pr_username: Option<String>,
 
-        #[ci(env(CIRCLE_PULL_REQUESTS))]
-        /// Comma-separated list of URLs of pull requests this build is a part of.
-        pull_requests: String?,
+    /// Comma-separated list of URLs of pull requests this build is a part of.
+    #[ci(env = "CIRCLE_PULL_REQUESTS")]
+    pull_requests: Option<String>,
 
-        #[ci(env(CIRCLE_PULL_REQUEST))]
-        /// If this build is part of only one pull request, its URL will be populated here.
-        /// If there was more than one pull request,
-        /// it will contain one of the pull request URLs (picked randomly).
-        pull_request: String?,
+    /// If this build is part of only one pull request, its URL will be populated here.
+    /// If there was more than one pull request,
+    /// it will contain one of the pull request URLs (picked randomly).
+    #[ci(env = "CIRCLE_PULL_REQUEST")]
+    pull_request: Option<String>,
 
-        #[ci(env(CIRCLE_TAG))]
-        /// The name of the git tag being tested, e.g. ‘release-v1.5.4’, if the build is running for a tag.
-        tag: String?,
+    /// The name of the git tag being tested, e.g. ‘release-v1.5.4’, if the build is running for a tag.
+    #[ci(env = "CIRCLE_TAG")]
+    tag: Option<String>,
 
-        #[ci(env(CIRCLE_PROJECT_USERNAME))]
-        /// The username or organization name of the project being tested,
-        /// i.e. “foo” in circleci.com/gh/foo/bar/123.
-        project_username: String!,
+    /// The username or organization name of the project being tested,
+    /// i.e. “foo” in circleci.com/gh/foo/bar/123.
+    #[ci(env = "CIRCLE_PROJECT_USERNAME")]
+    #[ci(expected)]
+    project_username: Option<String>,
 
-        #[ci(env(CIRCLE_PROJECT_REPONAME))]
-        /// The repository name of the project being tested,
-        /// i.e. “bar” in circleci.com/gh/foo/bar/123.
-        project_reponame: String!,
+    /// The repository name of the project being tested,
+    /// i.e. “bar” in circleci.com/gh/foo/bar/123.
+    #[ci(env = "CIRCLE_PROJECT_REPONAME")]
+    #[ci(expected)]
+    project_reponame: Option<String>,
 
-        #[ci(env(CIRCLE_INTERNAL_TASK_DATA))]
-        /// The directory where test timing data can be found.
-        internal_task_data: PathBuf!,
+    /// The directory where test timing data can be found.
+    #[ci(env = "CIRCLE_INTERNAL_TASK_DATA")]
+    #[ci(expected)]
+    internal_task_data: Option<PathBuf>,
 
-        #[ci(env(CIRCLE_STAGE))]
-        /// The job being executed. The default 2.0 job is `build` without using Workflows.
-        stage: String!,
-    }
+    /// The job being executed. The default 2.0 job is `build` without using Workflows.
+    #[ci(env = "CIRCLE_STAGE")]
+    #[ci(expected)]
+    stage: Option<String>,
 }

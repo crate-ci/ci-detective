@@ -1,0 +1,18 @@
+[package]
+name = "ci-detective-internal-derive"
+version = "0.0.1"
+authors = ["Christopher Durham <cad97@cad97.com>"]
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "0.5"
+proc-macro2 = "0.3"
+
+[dependencies.syn]
+version = "0.13"
+features = ["extra-traits"]
+
+[features]
+nightly = ["proc-macro2/nightly"]
