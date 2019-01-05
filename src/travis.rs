@@ -108,7 +108,8 @@ pub struct Travis {
 impl Travis {
     /// Construct this provider's information from the environment.
     pub fn from_env() -> Option<Self> {
-        if !(env("CI")? == "true" && env("TRAVIS")? == "true"
+        if !(env("CI")? == "true"
+            && env("TRAVIS")? == "true"
             && env("CONTINUOUS_INTEGRATION")? == "true"
             && env("DEBIAN_FRONTEND")? == "noninteractive"
             && env("HAS_JOSH_K_SEAL_OF_APPROVAL")? == "true")
@@ -178,7 +179,8 @@ pub enum EventType {
     PullRequest,
     Api,
     Cron,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for EventType {
@@ -202,7 +204,8 @@ impl FromStr for EventType {
 pub enum OS {
     Linux,
     MacOS,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for OS {
