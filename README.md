@@ -4,7 +4,7 @@
 
 [![Travis](https://travis-ci.org/crate-ci/ci-detective.svg)][Travis]
 [![Appveyor](https://ci.appveyor.com/api/projects/status/ane9s9m78ij6i1hq/branch/master?svg=true)](https://ci.appveyor.com/project/epage/ci-detective/branch/master)
-[![Codeship](https://app.codeship.com/projects/d498c1e0-f33e-0136-19a0-4e3e1edea9c6/status?branch=master)](/projects/320593)
+[![Codeship](https://app.codeship.com/projects/d498c1e0-f33e-0136-19a0-4e3e1edea9c6/status?branch=master)](https://app.codeship.com/projects/320593)
 [![CircleCI](https://circleci.com/gh/crate-ci/ci-detective/tree/master.svg?style=svg)](https://circleci.com/gh/crate-ci/ci-detective/tree/master)
 [![Documentation](https://img.shields.io/badge/docs-master-blue.svg)][Documentation]
 ![License](https://img.shields.io/crates/l/ci-detective.svg)
