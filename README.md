@@ -2,8 +2,9 @@
 
 > **Query CI Environment** - Look up information about the CI the build is happening in.
 
-[![Build Status](https://travis-ci.org/crate-ci/ci-detective.svg)][Travis]
-[![Build status](https://ci.appveyor.com/api/projects/status/ane9s9m78ij6i1hq/branch/master?svg=true)](https://ci.appveyor.com/project/epage/ci-detective/branch/master)
+[![Travis Status](https://travis-ci.org/crate-ci/ci-detective.svg)][Travis]
+[![Appveyor status](https://ci.appveyor.com/api/projects/status/ane9s9m78ij6i1hq/branch/master?svg=true)](https://ci.appveyor.com/project/epage/ci-detective/branch/master)
+[![Codeship Status](https://app.codeship.com/projects/d498c1e0-f33e-0136-19a0-4e3e1edea9c6/status?branch=master)](/projects/320593)
 [![Documentation](https://img.shields.io/badge/docs-master-blue.svg)][Documentation]
 ![License](https://img.shields.io/crates/l/ci-detective.svg)
 [![crates.io](https://img.shields.io/crates/v/ci-detective.svg)][Crates.io]
