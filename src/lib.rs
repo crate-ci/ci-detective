@@ -7,7 +7,6 @@
 #![forbid(
     missing_debug_implementations,
     unconditional_recursion,
-    future_incompatible
 )]
 #![deny(bad_style, missing_docs, unsafe_code, unused)]
 #![warn(unreachable_pub)]
