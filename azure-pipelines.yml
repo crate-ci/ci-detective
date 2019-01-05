@@ -1,0 +1,41 @@
+# Ref: https://aka.ms/yaml
+
+resources:
+  containers:
+  - container: debian-jessie
+    image: onuras/docs.rs:debian-jessie
+  - container: debian-stretch
+    image: onuras/docs.rs:debian-stretch
+
+
+jobs:
+- job: test
+  pool:
+    vmImage: 'Ubuntu 16.04'
+  strategy:
+    matrix:
+      jessie:
+        containerResource: debian-jessie
+      stretch:
+        containerResource: debian-stretch
+  container: $[ variables['containerResource'] ]
+  steps:
+    - script: curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
+      displayName: 'Install rustc'
+    - script: |
+        export PATH=$PATH:$HOME/.cargo/bin
+        rustc --version --verbose
+        cargo --version --verbose
+      displayName: Versions
+    - script: |
+        export PATH=$PATH:$HOME/.cargo/bin
+        cargo check --verbose
+      displayName: Build
+    - script: |
+        export PATH=$PATH:$HOME/.cargo/bin
+        cargo test --verbose
+      displayName: Test
+    - script: |
+        export PATH=$PATH:$HOME/.cargo/bin
+        cargo run --verbose
+      displayName: Dump
