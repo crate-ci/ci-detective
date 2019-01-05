@@ -3,6 +3,7 @@
 > **Query CI Environment** - Look up information about the CI the build is happening in.
 
 [![Build Status](https://travis-ci.org/crate-ci/ci-detective.svg)][Travis]
+[![Build status](https://ci.appveyor.com/api/projects/status/ane9s9m78ij6i1hq/branch/master?svg=true)](https://ci.appveyor.com/project/epage/ci-detective/branch/master)
 [![Documentation](https://img.shields.io/badge/docs-master-blue.svg)][Documentation]
 ![License](https://img.shields.io/crates/l/ci-detective.svg)
 [![crates.io](https://img.shields.io/crates/v/ci-detective.svg)][Crates.io]
