@@ -33,6 +33,7 @@ install:
 script:
 - cargo check --verbose
 - cargo test --verbose
+- cargo run --verbose
 
 cache:
   cargo: true
