@@ -105,7 +105,8 @@ pub enum RepoProvider {
     Kiln,
     Vso,
     Gitlab,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for RepoProvider {
@@ -127,7 +128,8 @@ impl FromStr for RepoProvider {
 pub enum RepoSCM {
     Git,
     Mercurial,
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl FromStr for RepoSCM {

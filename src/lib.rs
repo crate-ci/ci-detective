@@ -4,7 +4,11 @@
 //! documentation and is copyright the provider under the original license
 
 #![warn(warnings)]
-#![forbid(missing_debug_implementations, unconditional_recursion, future_incompatible)]
+#![forbid(
+    missing_debug_implementations,
+    unconditional_recursion,
+    future_incompatible
+)]
 #![deny(bad_style, missing_docs, unsafe_code, unused)]
 #![warn(unreachable_pub)]
 #![cfg_attr(feature = "nightly", feature(non_exhaustive))]
@@ -27,7 +31,8 @@ pub enum CI {
     Circle(Circle),
     /// Appveyor CI
     Appveyor(Appveyor),
-    #[doc(hidden)] __NonExhaustive,
+    #[doc(hidden)]
+    __NonExhaustive,
 }
 
 impl CI {
