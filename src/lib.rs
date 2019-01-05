@@ -3,13 +3,14 @@
 //! Documentation of individual build environment variables is from the appropriate
 //! documentation and is copyright the provider under the original license
 
-#![warn(warnings)]
-#![forbid(
-    missing_debug_implementations,
-    unconditional_recursion,
-)]
-#![deny(bad_style, missing_docs, unsafe_code, unused)]
+#![warn(bad_style)]
+#![warn(missing_debug_implementations)]
+#![warn(missing_docs)]
+#![warn(unconditional_recursion)]
 #![warn(unreachable_pub)]
+#![warn(unsafe_code)]
+#![warn(unused)]
+#![warn(unused_extern_crates)]
 #![cfg_attr(feature = "nightly", feature(non_exhaustive))]
 
 /// Grab the configuration from whatever CI you're on.
