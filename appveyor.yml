@@ -23,6 +23,7 @@ test_script:
 - cargo check --verbose
 - cargo test --verbose
 - cargo run --verbose
+- set
 
 branches:
   only:
