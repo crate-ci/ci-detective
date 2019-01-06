@@ -25,6 +25,9 @@ jobs:
           name: Test
           command: rustup run stable cargo test --verbose
       - run:
+          name: Dump (baseline)
+          command: printenv
+      - run:
           name: Dump
           command: rustup run stable cargo run --verbose
       - save_cache:

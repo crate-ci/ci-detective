@@ -37,5 +37,9 @@ jobs:
       displayName: Test
     - script: |
         export PATH=$PATH:$HOME/.cargo/bin
+        printenv
+      displayName: Dump (baseline)
+    - script: |
+        export PATH=$PATH:$HOME/.cargo/bin
         cargo run --verbose
       displayName: Dump
