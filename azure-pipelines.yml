@@ -1,45 +1,94 @@
-# Ref: https://aka.ms/yaml
-
 resources:
-  containers:
-  - container: debian-jessie
-    image: onuras/docs.rs:debian-jessie
-  - container: debian-stretch
-    image: onuras/docs.rs:debian-stretch
-
-
+  repositories:
+    - repository: crate-ci
+      type: github
+      name: crate-ci/resources
+      endpoint: crate-ci
+variables:
+  check_toolchain: 1.31.0  # `stable`: Locking down for consistent behavior
+  minimum_supported_version: 1.22.0
 jobs:
-- job: test
+- template: /az-pipeline/unstable/rustfmt.yml@crate-ci
+  parameters:
+    rustup_toolchain: $(check_toolchain)
+- template: /az-pipeline/unstable/clippy.yml@crate-ci
+  parameters:
+    rustup_toolchain: $(check_toolchain)
+- template: /az-pipeline/unstable/warnings.yml@crate-ci
+  parameters:
+    rustup_toolchain: $(check_toolchain)
+- job: Windows
   pool:
-    vmImage: 'Ubuntu 16.04'
+    vmImage: vs2017-win2016
   strategy:
     matrix:
-      jessie:
-        containerResource: debian-jessie
-      stretch:
-        containerResource: debian-stretch
-  container: $[ variables['containerResource'] ]
+      stable:
+        rustup_toolchain: stable
+      beta:
+        rustup_toolchain: beta
+      nightly:
+        rustup_toolchain: nightly
+      minimum_supported_version:
+        rustup_toolchain: $(minimum_supported_version)
   steps:
-    - script: curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable
-      displayName: 'Install rustc'
-    - script: |
-        export PATH=$PATH:$HOME/.cargo/bin
-        rustc --version --verbose
-        cargo --version --verbose
-      displayName: Versions
-    - script: |
-        export PATH=$PATH:$HOME/.cargo/bin
-        cargo check --verbose
-      displayName: Build
-    - script: |
-        export PATH=$PATH:$HOME/.cargo/bin
-        cargo test --verbose
+    - template: /az-pipeline/unstable/rustup.yml@crate-ci
+      parameters:
+        rustup_toolchain: $(rustup_toolchain)
+    - script: cargo check --verbose
+      displayName: Compile
+    - script: cargo test --verbose
       displayName: Test
-    - script: |
-        export PATH=$PATH:$HOME/.cargo/bin
-        printenv
+    - script: set
       displayName: Dump (baseline)
-    - script: |
-        export PATH=$PATH:$HOME/.cargo/bin
-        cargo run --verbose
+    - script: cargo run --verbose
+      displayName: Dump
+- job: macOS
+  pool:
+    vmImage: macOS-10.13
+  strategy:
+    matrix:
+      stable:
+        rustup_toolchain: stable
+      beta:
+        rustup_toolchain: beta
+      nightly:
+        rustup_toolchain: nightly
+      minimum_supported_version:
+        rustup_toolchain: $(minimum_supported_version)
+  steps:
+    - template: /az-pipeline/unstable/rustup.yml@crate-ci
+      parameters:
+        rustup_toolchain: $(rustup_toolchain)
+    - script: cargo check --verbose
+      displayName: Compile
+    - script: cargo test --verbose
+      displayName: Test
+    - script: printenv
+      displayName: Dump (baseline)
+    - script: cargo run --verbose
+      displayName: Dump
+- job: Linux
+  pool:
+    vmImage: ubuntu-16.04
+  strategy:
+    matrix:
+      stable:
+        rustup_toolchain: stable
+      beta:
+        rustup_toolchain: beta
+      nightly:
+        rustup_toolchain: nightly
+      minimum_supported_version:
+        rustup_toolchain: $(minimum_supported_version)
+  steps:
+    - template: /az-pipeline/unstable/rustup.yml@crate-ci
+      parameters:
+        rustup_toolchain: $(rustup_toolchain)
+    - script: cargo check --verbose
+      displayName: Compile
+    - script: cargo test --verbose
+      displayName: Test
+    - script: printenv
+      displayName: Dump (baseline)
+    - script: cargo run --verbose
       displayName: Dump
